@@ -30,4 +30,7 @@ main{padding:12px}
 .info .vazio{color:#999;font-weight:400}
 .botao{display:block;width:100%;max-width:420px;margin:0 auto;min-height:64px;border:0;border-radius:14px;background:var(--verde);color:#fff;font:inherit;font-size:1.2rem;font-weight:800}
 .botao.desfazer{background:#fff;color:var(--vermelho);border:3px solid var(--vermelho)}
+.botao.compartilhar{background:#25a244;margin-bottom:8px}
+.botao.compartilhar:disabled{opacity:.6}
+.msg{max-width:420px;margin:0 auto 8px;text-align:center;color:var(--vermelho);font-size:.9rem}
 [hidden]{display:none!important}
