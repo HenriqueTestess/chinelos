@@ -70,6 +70,7 @@
     dec.textContent = i.decoracao || "A definir"; dec.className = i.decoracao ? "" : "vazio";
     val.textContent = fv || "A definir"; val.className = fv ? "" : "vazio";
     atualizarBotao();
+    $("d-msg").hidden = true;
     $("detalhe").hidden = false; $("detalhe").scrollTop = 0;
     document.body.style.overflow = "hidden";
     if (empurrar) history.pushState({ d: 1 }, "");
@@ -91,6 +92,35 @@
     if (vendidos.has(a)) vendidos.delete(a); else vendidos.add(a);
     salvar(); atualizarBotao();
   };
+  // Compartilhar só a imagem (JPEG, sem link nem texto) -> abre a lista de apps do celular
+  async function fotoComoArquivo(i) {
+    const img = new Image();
+    img.src = medio(i);
+    await img.decode();
+    const c = document.createElement("canvas");
+    c.width = img.naturalWidth; c.height = img.naturalHeight;
+    const x = c.getContext("2d");
+    x.fillStyle = "#fff"; x.fillRect(0, 0, c.width, c.height);
+    x.drawImage(img, 0, 0);
+    const blob = await new Promise(r => c.toBlob(r, "image/jpeg", 0.92));
+    return new File([blob], "chinelo-" + i.numeracao + ".jpg", { type: "image/jpeg" });
+  }
+  $("d-compartilhar").onclick = async () => {
+    const btn = $("d-compartilhar"), msg = $("d-msg");
+    msg.hidden = true; btn.disabled = true;
+    try {
+      const arq = await fotoComoArquivo(aberto);
+      if (!navigator.canShare || !navigator.canShare({ files: [arq] })) throw new Error("sem-suporte");
+      await navigator.share({ files: [arq] });
+    } catch (e) {
+      if (e.name !== "AbortError") {
+        msg.textContent = "Este celular não permitiu compartilhar. Use o Chrome (Android) ou o Safari (iPhone) com o app aberto pelo endereço do site.";
+        msg.hidden = false;
+      }
+    }
+    btn.disabled = false;
+  };
+
   $("voltar").onclick = () => { if (history.state && history.state.d) history.back(); else fechar(); };
   addEventListener("popstate", () => { if (!$("detalhe").hidden) fechar(); });
 
