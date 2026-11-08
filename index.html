@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Meus Chinelos</title>
+<meta name="theme-color" content="#d6336c">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topo">
+  <h1>🩴 Meus Chinelos</h1>
+  <p id="resumo" class="resumo"></p>
+  <nav id="abas" class="abas" aria-label="Numerações"></nav>
+</header>
+
+<main>
+  <div id="grade" class="grade"></div>
+  <p id="aviso" class="aviso" hidden></p>
+</main>
+
+<section id="detalhe" class="detalhe" hidden aria-modal="true" role="dialog">
+  <button id="voltar" class="voltar" type="button">← Voltar</button>
+  <div class="foto-grande"><img id="d-foto" alt=""><span id="d-selo" class="selo grande" hidden>VENDIDO</span></div>
+  <dl class="info">
+    <div><dt>Numeração</dt><dd id="d-num"></dd></div>
+    <div><dt>Decoração</dt><dd id="d-dec"></dd></div>
+    <div><dt>Valor</dt><dd id="d-val"></dd></div>
+  </dl>
+  <button id="d-botao" class="botao" type="button"></button>
+</section>
+
+<script src="app.js"></script>
+</body>
+</html>
